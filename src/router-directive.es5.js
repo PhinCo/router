@@ -82,19 +82,25 @@ function routerFactory($$rootRouter, $rootScope, $location, $$grammar, $controll
     $$grammar.config(name, config);
   });
   
-  $rootScope.$watch( function(){
-    return $location.path();
-  }, function (newUrl) {
-    if( $location.path() !== newUrl ){
-      $$rootRouter.navigate(newUrl);
-    }
-  });
+  function _locationPathWatcher( newUrl ){
+    if( newUrl ) $$rootRouter.navigate( newUrl );
+  }
+  
+  function _beginWatchingLocationPath(){
+    return $rootScope.$watch( function(){
+      return $location.path();
+    }, _locationPathWatcher );
+  }
+  
+  var _unbindLocationPathWatch = _beginWatchingLocationPath();
 
   var nav = $$rootRouter.navigate;
   $$rootRouter.navigate = function( url ){
     return nav.call(this, url).then( function( newUrl ){
       if( newUrl ){
+        _unbindLocationPathWatch();
         $location.path( newUrl );
+        _unbindLocationPathWatch = _beginWatchingLocationPath();
       }
     });
   };
