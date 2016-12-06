@@ -4,7 +4,7 @@ describe('$controllerIntrospector', function () {
 
   beforeEach(function() {
     module('ng');
-    module('ngNewRouter');
+    module('ngPhinRouter');
     module(function(_$controllerProvider_) {
       $controllerProvider = _$controllerProvider_;
     });

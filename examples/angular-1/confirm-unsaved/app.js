@@ -1,5 +1,5 @@
 angular.module('myApp', [
-  'ngNewRouter',
+  'ngPhinRouter',
   'myApp.index',
   'myApp.editPost',
   'myApp.saveModal'

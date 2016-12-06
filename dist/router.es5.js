@@ -3,7 +3,7 @@
 /*
  * A module for adding new a routing system Angular 1.
  */
-angular.module('ngNewRouter', [])
+angular.module('ngPhinRouter', [])
   .factory('$router', routerFactory)
   .value('$routeParams', {})
   .provider('$componentLoader', $componentLoaderProvider)
@@ -559,7 +559,7 @@ function dashCase(str) {
 }
 
 
-angular.module('ngNewRouter').factory('$$rootRouter', ['$q', '$$grammar', '$$pipeline', function ($q, $$grammar, $$pipeline) {
+angular.module('ngPhinRouter').factory('$$rootRouter', ['$q', '$$grammar', '$$pipeline', function ($q, $$grammar, $$pipeline) {
 /*
  * artisinal, handcrafted subset of the traceur runtime for picky webdevs
  */
@@ -801,7 +801,7 @@ return new RootRouter($$grammar, $$pipeline);
 }]);
 
 
-angular.module('ngNewRouter').factory('$$grammar', ['$q', function ($q) {
+angular.module('ngPhinRouter').factory('$$grammar', ['$q', function ($q) {
 /*
  * artisinal, handcrafted subset of the traceur runtime for picky webdevs
  */

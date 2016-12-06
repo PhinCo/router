@@ -33,7 +33,7 @@ gulp.task('angularify', ['transpile'], function() {
 
   var generated = gulp.src(['./src/router.ats', './src/grammar.ats'])
       .pipe(modulate({
-        moduleName: 'ngNewRouter.generated'
+        moduleName: 'ngPhinRouter.generated'
       }))
 
   return gulpMerge(directive, generated)

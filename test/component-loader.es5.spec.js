@@ -1,6 +1,6 @@
 describe('$componentLoader', function () {
 
-  beforeEach(module('ngNewRouter'));
+  beforeEach(module('ngPhinRouter'));
 
   it('should convert a component name to a controller name', inject(function ($componentLoader) {
     expect($componentLoader.controllerName('foo')).toBe('FooController');

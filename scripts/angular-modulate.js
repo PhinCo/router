@@ -68,7 +68,7 @@ module.exports = function (opts) {
   return stream;
 };
 
-// console.log("angular.module('ngNewRouter.generated', []);");
+// console.log("angular.module('ngPhinRouter.generated', []);");
 // console.log(traceurRuntime);
 
 
@@ -133,7 +133,7 @@ function angularReWrap (node, services) {
     var body = decl.init.callee.body.body;
     var exports = body[body.length - 1];
     body = body.slice(0, -1);
-    node.update("\nangular.module('ngNewRouter')" +
+    node.update("\nangular.module('ngPhinRouter')" +
       exports.argument.properties.map(function (prop) {
         return angularFactory(serviceify(prop.key.name),
             ['$q'].concat(services),

@@ -12,7 +12,7 @@ describe('ngViewport', function () {
 
   beforeEach(function() {
     module('ng');
-    module('ngNewRouter');
+    module('ngPhinRouter');
     module(function(_$controllerProvider_) {
       $controllerProvider = _$controllerProvider_;
     });
@@ -699,7 +699,7 @@ describe('ngViewport animations', function () {
   beforeEach(function() {
     module('ngAnimate');
     module('ngAnimateMock');
-    module('ngNewRouter');
+    module('ngPhinRouter');
     module(function(_$controllerProvider_) {
       $controllerProvider = _$controllerProvider_;
     });

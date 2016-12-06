@@ -3,7 +3,7 @@
 /*
  * A module for adding new a routing system Angular 1.
  */
-angular.module('ngNewRouter', [])
+angular.module('ngPhinRouter', [])
   .factory('$router', routerFactory)
   .value('$routeParams', {})
   .provider('$componentLoader', $componentLoaderProvider)

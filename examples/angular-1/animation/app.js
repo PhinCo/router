@@ -2,7 +2,7 @@ angular.module('example', [
   'example.goodbye',
   'example.welcome',
   'ngAnimate',
-  'ngNewRouter'
+  'ngPhinRouter'
 ])
 .controller('AppController', ['$router', AppController]);
 

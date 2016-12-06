@@ -1,5 +1,5 @@
 angular.module('myApp', [
-  'ngNewRouter'
+  'ngPhinRouter'
 ])
 .controller('AppController', ['$router', AppController]);
 

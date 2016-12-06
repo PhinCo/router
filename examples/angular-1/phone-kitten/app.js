@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('phoneKitten', [
-  'ngNewRouter',
+  'ngPhinRouter',
   'ngAnimate',
 
   'phoneKitten.phoneDetail',

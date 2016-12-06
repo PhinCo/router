@@ -1,5 +1,5 @@
 angular.module('myApp', [
-  'ngNewRouter',
+  'ngPhinRouter',
   'myApp.intro',
   'myApp.one',
   'myApp.two',

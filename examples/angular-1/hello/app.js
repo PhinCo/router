@@ -4,7 +4,7 @@ angular.module('example', [
   'example.flickr',
   'example.settings',
   'example.welcome',
-  'ngNewRouter'
+  'ngPhinRouter'
 ]).
   controller('AppController', ['$router', AppController]);
 
