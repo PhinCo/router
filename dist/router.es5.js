@@ -82,24 +82,20 @@ function routerFactory($$rootRouter, $rootScope, $location, $$grammar, $controll
   $controllerIntrospector(function (name, config) {
     $$grammar.config(name, config);
   });
-
-  var _listeningForPathChanges = true;
   
-  $rootScope.$watch(function () {
+  $rootScope.$watch( function(){
     return $location.path();
   }, function (newUrl) {
-    if( _listeningForPathChanges === true ){
+    if( $location.path() !== newUrl ){
       $$rootRouter.navigate(newUrl);
     }
   });
 
   var nav = $$rootRouter.navigate;
-  $$rootRouter.navigate = function (url) {
-    return nav.call(this, url).then(function (newUrl) {
-      if (newUrl) {
-        _listeningForPathChanges = false;
-        $location.path(newUrl);
-        _listeningForPathChanges = true;
+  $$rootRouter.navigate = function( url ){
+    return nav.call(this, url).then( function( newUrl ){
+      if( newUrl ){
+        $location.path( newUrl );
       }
     });
   };

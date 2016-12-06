@@ -1,6 +1,6 @@
 {
   "name": "phin-new-router",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A new router for both Angular 1 and Angular 2",
   "homepage": "https://github.com/angular/router",
   "main": "dist/router.es5.js",
