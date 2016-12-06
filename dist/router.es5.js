@@ -83,25 +83,17 @@ function routerFactory($$rootRouter, $rootScope, $location, $$grammar, $controll
     $$grammar.config(name, config);
   });
   
-  function _locationPathWatcher( newUrl ){
+  $rootScope.$watch( function(){
+    return $location.path();
+  }, function( newUrl ){
     if( newUrl ) $$rootRouter.navigate( newUrl );
-  }
+  });
   
-  function _beginWatchingLocationPath(){
-    return $rootScope.$watch( function(){
-      return $location.path();
-    }, _locationPathWatcher );
-  }
-  
-  var _unbindLocationPathWatch = _beginWatchingLocationPath();
-
   var nav = $$rootRouter.navigate;
   $$rootRouter.navigate = function( url ){
     return nav.call(this, url).then( function( newUrl ){
       if( newUrl ){
-        _unbindLocationPathWatch();
         $location.path( newUrl );
-        _unbindLocationPathWatch = _beginWatchingLocationPath();
       }
     });
   };
@@ -681,19 +673,15 @@ var Router = function Router(grammar, pipeline, parent, name) {
     },
     navigate: function(url) {
       var $__0 = this;
-      if (this.navigating) {
+      if (this.navigating || this.lastNavigationAttempt == url)
         return $q.when();
-      }
-      this.lastNavigationAttempt = url;
       var instruction = this.recognize(url);
-      if (!instruction) {
+      if (!instruction)
         return $q.reject();
-      }
+      this.lastNavigationAttempt = url;
       this._startNavigating();
       instruction.router = this;
       return this.pipeline.process(instruction).then((function() {
-        return $__0._finishNavigating();
-      }), (function() {
         return $__0._finishNavigating();
       })).then((function() {
         return instruction.canonicalUrl;

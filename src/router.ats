@@ -67,24 +67,18 @@ class Router {
    * Returns the cannonical URL for the route navigated to.
    */
   navigate(url) {
-    if (this.navigating) {
-      return Promise.resolve();
-    }
-
-    this.lastNavigationAttempt = url;
-
+    if( this.navigating || this.lastNavigationAttempt == url ) return Promise.resolve();
+    
     var instruction = this.recognize(url);
-
-    if (!instruction) {
-      return Promise.reject();
-    }
-
+    if( !instruction ) return Promise.reject();
+    
+    this.lastNavigationAttempt = url;
     this._startNavigating();
 
     instruction.router = this;
-    return this.pipeline.process(instruction)
-        .then(() => this._finishNavigating(), () => this._finishNavigating())
-        .then(() => instruction.canonicalUrl);
+    return this.pipeline.process( instruction )
+        .then( () => this._finishNavigating() )
+        .then( () => instruction.canonicalUrl );
   }
 
   _startNavigating() {

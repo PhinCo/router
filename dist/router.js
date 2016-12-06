@@ -38,19 +38,15 @@ define(["assert", './grammar', './pipeline'], function($__0,$__2,$__4) {
     },
     navigate: function(url) {
       var $__6 = this;
-      if (this.navigating) {
+      if (this.navigating || this.lastNavigationAttempt == url)
         return Promise.resolve();
-      }
-      this.lastNavigationAttempt = url;
       var instruction = this.recognize(url);
-      if (!instruction) {
+      if (!instruction)
         return Promise.reject();
-      }
+      this.lastNavigationAttempt = url;
       this._startNavigating();
       instruction.router = this;
       return this.pipeline.process(instruction).then((function() {
-        return $__6._finishNavigating();
-      }), (function() {
         return $__6._finishNavigating();
       })).then((function() {
         return instruction.canonicalUrl;
