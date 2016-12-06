@@ -91,11 +91,7 @@ function routerFactory($$rootRouter, $rootScope, $location, $$grammar, $controll
 
   var nav = $$rootRouter.navigate;
   $$rootRouter.navigate = function (url) {
-    return nav.call(this, url).then(function (newUrl) {
-      if (newUrl) {
-        $location.path(newUrl);
-      }
-    });
+    return nav.call(this, url);
   }
 
   return $$rootRouter;
