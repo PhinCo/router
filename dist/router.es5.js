@@ -83,16 +83,26 @@ function routerFactory($$rootRouter, $rootScope, $location, $$grammar, $controll
     $$grammar.config(name, config);
   });
 
+  var _listeningForPathChanges = true;
+  
   $rootScope.$watch(function () {
     return $location.path();
   }, function (newUrl) {
-    $$rootRouter.navigate(newUrl);
+    if( _listeningForPathChanges === true ){
+      $$rootRouter.navigate(newUrl);
+    }
   });
 
   var nav = $$rootRouter.navigate;
   $$rootRouter.navigate = function (url) {
-    return nav.call(this, url);
-  }
+    return nav.call(this, url).then(function (newUrl) {
+      if (newUrl) {
+        _listeningForPathChanges = false;
+        $location.path(newUrl);
+        _listeningForPathChanges = true;
+      }
+    });
+  };
 
   return $$rootRouter;
 }
