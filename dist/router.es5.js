@@ -673,17 +673,17 @@ var Router = function Router(grammar, pipeline, parent, name) {
     },
     navigate: function(url) {
       var $__0 = this;
-      if (this.navigating || this.lastNavigationAttempt == url)
+      if (this.navigating || this.lastNavigatedUrl == url)
         return $q.when();
       var instruction = this.recognize(url);
       if (!instruction)
         return $q.reject();
-      this.lastNavigationAttempt = url;
       this._startNavigating();
       instruction.router = this;
       return this.pipeline.process(instruction).then((function() {
         return $__0._finishNavigating();
       })).then((function() {
+        $__0.lastNavigatedUrl = instruction.canonicalUrl;
         return instruction.canonicalUrl;
       }));
     },

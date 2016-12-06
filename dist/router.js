@@ -38,17 +38,17 @@ define(["assert", './grammar', './pipeline'], function($__0,$__2,$__4) {
     },
     navigate: function(url) {
       var $__6 = this;
-      if (this.navigating || this.lastNavigationAttempt == url)
+      if (this.navigating || this.lastNavigatedUrl == url)
         return Promise.resolve();
       var instruction = this.recognize(url);
       if (!instruction)
         return Promise.reject();
-      this.lastNavigationAttempt = url;
       this._startNavigating();
       instruction.router = this;
       return this.pipeline.process(instruction).then((function() {
         return $__6._finishNavigating();
       })).then((function() {
+        $__6.lastNavigatedUrl = instruction.canonicalUrl;
         return instruction.canonicalUrl;
       }));
     },

@@ -67,18 +67,20 @@ class Router {
    * Returns the cannonical URL for the route navigated to.
    */
   navigate(url) {
-    if( this.navigating || this.lastNavigationAttempt == url ) return Promise.resolve();
+    if( this.navigating || this.lastNavigatedUrl == url ) return Promise.resolve();
     
     var instruction = this.recognize(url);
     if( !instruction ) return Promise.reject();
     
-    this.lastNavigationAttempt = url;
     this._startNavigating();
 
     instruction.router = this;
     return this.pipeline.process( instruction )
         .then( () => this._finishNavigating() )
-        .then( () => instruction.canonicalUrl );
+        .then( () => {
+          this.lastNavigatedUrl = instruction.canonicalUrl;
+          return instruction.canonicalUrl
+        });
   }
 
   _startNavigating() {
@@ -88,8 +90,7 @@ class Router {
   _finishNavigating() {
     this.navigating = false;
   }
-
-
+  
   makeDescendantRouters(instruction) {
     this.traverseInstructionSync(instruction, (instruction, childInstruction) => {
       childInstruction.router = instruction.router.childRouter(childInstruction.component);
@@ -158,7 +159,7 @@ class Router {
 
 
   /**
-   * @description Navigates to either the last URL successfully naviagted to,
+   * @description Navigates to either the last URL successfully navigated to,
    * or the last URL requested if the router has yet to successfully navigate.
    * You shouldn't need to use this API very often.
    */
